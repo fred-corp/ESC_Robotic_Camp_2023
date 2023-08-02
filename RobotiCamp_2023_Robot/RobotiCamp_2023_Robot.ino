@@ -142,7 +142,7 @@ void M1Move(int speed1, int speed2) {
   analogWrite(IN2, speed2);
 }
 
-void M2Move(int speed3, int speed14) {
+void M2Move(int speed3, int speed4) {
   analogWrite(IN3, speed3);
   analogWrite(IN4, speed4);
 }
