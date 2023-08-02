@@ -40,10 +40,10 @@
 Servo monservo;
 
 // Calibration
-const int avanceGauche = 255;
-const int avanceDroite = 255;
-const int reculeGauche = 255;
-const int reculeDroite = 255;
+const int forwardLeft   = 255;
+const int forwardRight  = 255;
+const int backwardLeft  = 255;
+const int backwardRight = 255;
 
 
 void setup() {
@@ -62,7 +62,7 @@ void setup() {
 }
 
 void loop() {
-  if (capteurDistance() < 15) {
+  if (distanceSensor() < 15) {
     backward();
     delay(600);
     
@@ -72,11 +72,11 @@ void loop() {
     
     
     lookLeft();
-    float distanceLeft = capteurDistance();
+    float distanceLeft = distanceSensor();
     delay(100);
     
     lookRight();
-    float distanceRight = capteurDistance();
+    float distanceRight = distanceSensor();
     delay(100);
 
     lookForward();
@@ -111,23 +111,23 @@ void lookForward() {
 }
 
 void forward() {
-  M1Move(0, avanceDroite);
-  M2Move(0, avanceGauche);
+  M1Move(0, forwardRight);
+  M2Move(0, forwardLeft);
 }
 
 void backward() {
-  M1Move(reculeDroite, 0);
-  M2Move(reculeGauche, 0);
+  M1Move(backwardRight, 0);
+  M2Move(backwardLeft, 0);
 }
 
 void left() {
-  M1Move(0, avanceDroite);
+  M1Move(0, forwardRight);
   M2Move(0, 0);
 }
 
 void right() {
   M1Move(0, 0);
-  M2Move(0, avanceGauche);
+  M2Move(0, forwardLeft);
 }
 
 void MStop() {
@@ -137,30 +137,26 @@ void MStop() {
   digitalWrite(IN4, LOW);
 }
 
-void M1Move(int vitesse1, int vitesse2) {
-  analogWrite(IN1, vitesse1);
-  analogWrite(IN2, vitesse2);
+void M1Move(int speed1, int speed2) {
+  analogWrite(IN1, speed1);
+  analogWrite(IN2, speed2);
 }
 
-void M2Move(int vitesse3, int vitesse4) {
-  analogWrite(IN3, vitesse3);
-  analogWrite(IN4, vitesse4);
+void M2Move(int speed3, int speed14) {
+  analogWrite(IN3, speed3);
+  analogWrite(IN4, speed4);
 }
 
-float capteurDistance() {
-  // Activer le capteur
+float distanceSensor() {
   digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG, LOW);
   delayMicroseconds(10);
 
-  // Mesurer l'impulsion d'ECHO
-  int temps = pulseIn(ECHO, HIGH);
+  int time = pulseIn(ECHO, HIGH);
 
-  // Calculer la distance
-  float distance = ((temps * 340.0) / 2.0) / 10000;
+  float distance = ((time * 340.0) / 2.0) / 10000;
 
-  // Renvoyer la valeur
   return distance;
 }
 
