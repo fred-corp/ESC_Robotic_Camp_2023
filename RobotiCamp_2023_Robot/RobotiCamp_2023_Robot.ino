@@ -55,7 +55,12 @@ void setup() {
 }
 
 void loop() {
-  
+  if (capteurDistance() < 15) {
+    MStop();
+  }
+  else {
+    forward();
+  }
 }
 
 void forward() {
@@ -74,7 +79,7 @@ void left() {
 }
 
 void right() {
-  M1Move(0, 255);
+  M1Move(0, 0);
   M2Move(0, 255);
 }
 
