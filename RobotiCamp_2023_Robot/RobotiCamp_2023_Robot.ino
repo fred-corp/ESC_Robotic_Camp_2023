@@ -57,10 +57,38 @@ void setup() {
 void loop() {
   if (capteurDistance() < 15) {
     MStop();
+    delay(500);
+    
+    lookLeft();
+    float distanceLeft = capteurDistance();
+    delay(100);
+    
+    lookRight();
+    float distanceRight = capteurDistance();
+    delay(100);
+
+    if (distanceLeft > distanceRight) {
+      left();
+      delay(750);
+    } else {
+      right();
+      delay(750);
+    }
+    
   }
   else {
     forward();
   }
+}
+
+void lookLeft() {
+  monservo.write(180);
+  delay(200);
+}
+
+void lookRight() {
+  monservo.write(0);
+  delay(200);
 }
 
 void forward() {
