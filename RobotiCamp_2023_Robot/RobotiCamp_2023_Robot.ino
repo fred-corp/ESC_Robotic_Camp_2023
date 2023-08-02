@@ -39,6 +39,13 @@
 
 Servo monservo;
 
+// Calibration
+const int avanceGauche = 255;
+const int avanceDroite = 255;
+const int reculeGauche = 255;
+const int reculeDroite = 255;
+
+
 void setup() {
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
@@ -56,8 +63,13 @@ void setup() {
 
 void loop() {
   if (capteurDistance() < 15) {
+    backward();
+    delay(600);
+    
     MStop();
-    delay(500);
+    delay(300);
+
+    
     
     lookLeft();
     float distanceLeft = capteurDistance();
@@ -99,23 +111,23 @@ void lookForward() {
 }
 
 void forward() {
-  M1Move(0, 255);
-  M2Move(0, 255);
+  M1Move(0, avanceDroite);
+  M2Move(0, avanceGauche);
 }
 
 void backward() {
-  M1Move(255, 0);
-  M2Move(255, 0);
+  M1Move(reculeDroite, 0);
+  M2Move(reculeGauche, 0);
 }
 
 void left() {
-  M1Move(0, 255);
+  M1Move(0, avanceDroite);
   M2Move(0, 0);
 }
 
 void right() {
   M1Move(0, 0);
-  M2Move(0, 255);
+  M2Move(0, avanceGauche);
 }
 
 void MStop() {
