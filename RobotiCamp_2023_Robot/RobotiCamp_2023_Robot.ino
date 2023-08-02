@@ -2,6 +2,9 @@
    Titre  : RobotiCamp_2023_Robot
    Auteur : Frédéric Druppel
    Date   : 2023-08-02
+   Link   : https://github.com/fred-corp/ESC_Robotic_Camp_2023
+   Link 2 : https://bit.ly/ESC_Robotic
+
 
    Initialisation (setup) :
    1. Définir les E/S
@@ -55,7 +58,25 @@ void loop() {
   
 }
 
+void forward() {
+  M1Move(0, 255);
+  M2Move(0, 255);
+}
 
+void backward() {
+  M1Move(255, 0);
+  M2Move(255, 0);
+}
+
+void left() {
+  M1Move(0, 255);
+  M2Move(0, 0);
+}
+
+void right() {
+  M1Move(0, 255);
+  M2Move(0, 255);
+}
 
 void MStop() {
   digitalWrite(IN1, LOW);
