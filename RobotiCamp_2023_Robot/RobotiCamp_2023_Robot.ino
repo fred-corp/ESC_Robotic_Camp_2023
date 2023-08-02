@@ -67,6 +67,8 @@ void loop() {
     float distanceRight = capteurDistance();
     delay(100);
 
+    lookForward();
+    
     if (distanceLeft > distanceRight) {
       left();
       delay(750);
@@ -88,6 +90,11 @@ void lookLeft() {
 
 void lookRight() {
   monservo.write(0);
+  delay(200);
+}
+
+void lookForward() {
+  monservo.write(88);
   delay(200);
 }
 
