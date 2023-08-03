@@ -4,8 +4,7 @@ This repo contains the different files created during the 2023 Robotic Camp at t
 
 ## How to use
 
-Just clone/download the repo files and open them with your favorite Arduino IDE.  
-The file
+Just clone/download the repo files and open them with your favorite Arduino IDE.
 
 ## License & Acknowledgements
 
