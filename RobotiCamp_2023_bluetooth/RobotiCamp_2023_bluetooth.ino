@@ -19,13 +19,18 @@ void setup() {
 void loop() {
   if (bluetooth.available()) {
     char received = bluetooth.read();
-    Serial.println(received);
-    
-    if (received == '1') {
-      digitalWrite(led, HIGH);
-    }
-    else if (received == '2') {
-      digitalWrite(led, LOW);
+
+    switch (received) {
+      case '1' :
+        digitalWrite(led, HIGH);
+        break;
+      case '2' :
+        digitalWrite(led, LOW);
+        break;
+      default :
+        Serial.print("Commande non reconnue : ");
+        Serial.println(received);
+        break;
     }
   }
 }
