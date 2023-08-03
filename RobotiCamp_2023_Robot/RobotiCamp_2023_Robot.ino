@@ -37,7 +37,7 @@
 
 #define servoPin 4
 
-Servo monservo;
+Servo myservo;
 
 // Calibration
 const int forwardLeft   = 255;
@@ -55,8 +55,8 @@ void setup() {
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
 
-  monservo.attach(servoPin);
-  monservo.write(88);
+  myservo.attach(servoPin);
+  myservo.write(88);
 
   delay(2500);
 }
@@ -96,17 +96,17 @@ void loop() {
 }
 
 void lookLeft() {
-  monservo.write(180);
+  myservo.write(180);
   delay(200);
 }
 
 void lookRight() {
-  monservo.write(0);
+  myservo.write(0);
   delay(200);
 }
 
 void lookForward() {
-  monservo.write(88);
+  myservo.write(88);
   delay(200);
 }
 
