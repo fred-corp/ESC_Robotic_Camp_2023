@@ -24,6 +24,7 @@
 */
 
 #include <Servo.h>
+#include <SoftwareSerial.h>
 
 // Motor driver pins
 #define IN1 3
@@ -37,7 +38,14 @@
 
 #define servoPin 4
 
+// SoftwareSerial
+#define txPin 9      // -> RX BlueTooth module
+#define rxPin 10     // -> TX BlueTooth module
+
+
 Servo myservo;
+
+SoftwareSerial bluetooth(rxPin, txPin);
 
 // Calibration
 const int forwardLeft   = 255;
@@ -45,6 +53,7 @@ const int forwardRight  = 255;
 const int backwardLeft  = 255;
 const int backwardRight = 255;
 
+boolean autoMode = true;
 
 void setup() {
   pinMode(IN1, OUTPUT);
@@ -55,32 +64,67 @@ void setup() {
   pinMode(TRIG, OUTPUT);
   pinMode(ECHO, INPUT);
 
+  pinMode(txPin, OUTPUT);
+  pinMode(rxPin, INPUT);
+
   myservo.attach(servoPin);
   myservo.write(88);
 
+  bluetooth.begin(9600);
   delay(2500);
 }
 
 void loop() {
+  if (autoMode) {
+    autoPilot();
+  }
+
+  if (bluetooth.available()) {
+    char received = bluetooth.read();
+
+    switch (received) {
+      case 'M':
+        autoMode = !autoMode;
+        break;
+      case 'F':
+        forward();
+        break;
+      case 'B':
+        backward();
+        break;
+      case 'L':
+        left();
+        break;
+      case 'R':
+        right();
+        break;
+      default:
+        MStop();
+        break;
+    }
+  }
+}
+
+void autoPilot() {
   if (distanceSensor() < 15) {
     backward();
     delay(600);
-    
+
     MStop();
     delay(300);
 
-    
-    
+
+
     lookLeft();
     float distanceLeft = distanceSensor();
     delay(100);
-    
+
     lookRight();
     float distanceRight = distanceSensor();
     delay(100);
 
     lookForward();
-    
+
     if (distanceLeft > distanceRight) {
       left();
       delay(750);
@@ -88,7 +132,7 @@ void loop() {
       right();
       delay(750);
     }
-    
+
   }
   else {
     forward();
