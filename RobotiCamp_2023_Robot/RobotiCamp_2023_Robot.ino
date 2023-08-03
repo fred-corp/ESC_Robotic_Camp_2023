@@ -71,6 +71,7 @@ void setup() {
   myservo.write(88);
 
   bluetooth.begin(9600);
+  Serial.begin(9600);
   delay(2500);
 }
 
@@ -81,6 +82,7 @@ void loop() {
 
   if (bluetooth.available()) {
     char received = bluetooth.read();
+    Serial.println(received);
 
     switch (received) {
       case 'M':
@@ -155,23 +157,23 @@ void lookForward() {
 }
 
 void forward() {
-  M1Move(0, forwardRight);
-  M2Move(0, forwardLeft);
+  M1Move(0, forwardLeft);
+  M2Move(0, forwardRight);
 }
 
 void backward() {
-  M1Move(backwardRight, 0);
-  M2Move(backwardLeft, 0);
+  M1Move(backwardLeft, 0);
+  M2Move(backwardRight, 0);
 }
 
 void left() {
-  M1Move(0, forwardRight);
-  M2Move(0, 0);
+  M1Move(0, 0);
+  M2Move(0, forwardRight);
 }
 
 void right() {
-  M1Move(0, 0);
-  M2Move(0, forwardLeft);
+  M1Move(0, forwardLeft);
+  M2Move(0, 0);
 }
 
 void MStop() {
