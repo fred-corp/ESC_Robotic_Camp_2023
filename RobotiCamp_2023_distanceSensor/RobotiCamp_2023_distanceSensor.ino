@@ -17,7 +17,7 @@ void loop() {
 }
 
 float capteurDistance() {
-  // Trigger sentor
+  // Trigger sensor
   digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG, LOW);
