@@ -42,6 +42,9 @@
 #define txPin 9      // -> RX BlueTooth module
 #define rxPin 10     // -> TX BlueTooth module
 
+// Others
+#define LED 13
+
 
 Servo myservo;
 
@@ -67,6 +70,8 @@ void setup() {
   pinMode(txPin, OUTPUT);
   pinMode(rxPin, INPUT);
 
+  pinMode(LED, OUTPUT);
+
   myservo.attach(servoPin);
   myservo.write(88);
 
@@ -76,6 +81,8 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(LED, autoMode);
+  
   if (autoMode) {
     autoPilot();
   }
@@ -100,7 +107,7 @@ void loop() {
       case 'R':
         right();
         break;
-      default:
+      case 'S':
         MStop();
         break;
     }
